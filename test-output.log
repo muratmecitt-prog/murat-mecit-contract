@@ -1,0 +1,16 @@
+(node:6942) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///Users/selen/.gemini/antigravity/scratch/murat-mecit-contract/lib/pdfService.js is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /Users/selen/.gemini/antigravity/scratch/murat-mecit-contract/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+Starting PDF generation test...
+PDF Generation Failed: Error: Unknown font format
+    at Object.create (/Users/selen/.gemini/antigravity/scratch/murat-mecit-contract/node_modules/@pdf-lib/fontkit/dist/fontkit.umd.js:17842:12)
+    at CustomFontEmbedder.<anonymous> (/Users/selen/.gemini/antigravity/scratch/murat-mecit-contract/node_modules/pdf-lib/cjs/core/embedders/CustomFontEmbedder.js:39:58)
+    at step (/Users/selen/.gemini/antigravity/scratch/murat-mecit-contract/node_modules/pdf-lib/node_modules/tslib/tslib.js:141:27)
+    at Object.next (/Users/selen/.gemini/antigravity/scratch/murat-mecit-contract/node_modules/pdf-lib/node_modules/tslib/tslib.js:122:57)
+    at /Users/selen/.gemini/antigravity/scratch/murat-mecit-contract/node_modules/pdf-lib/node_modules/tslib/tslib.js:115:75
+    at new Promise (<anonymous>)
+    at Object.__awaiter (/Users/selen/.gemini/antigravity/scratch/murat-mecit-contract/node_modules/pdf-lib/node_modules/tslib/tslib.js:111:16)
+    at CustomFontEmbedder.for (/Users/selen/.gemini/antigravity/scratch/murat-mecit-contract/node_modules/pdf-lib/cjs/core/embedders/CustomFontEmbedder.js:35:24)
+    at PDFDocument.<anonymous> (/Users/selen/.gemini/antigravity/scratch/murat-mecit-contract/node_modules/pdf-lib/cjs/api/PDFDocument.js:883:79)
+    at step (/Users/selen/.gemini/antigravity/scratch/murat-mecit-contract/node_modules/pdf-lib/node_modules/tslib/tslib.js:141:27)
