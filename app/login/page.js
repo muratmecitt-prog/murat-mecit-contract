@@ -14,10 +14,18 @@ export default function LoginPage() {
     const router = useRouter()
     const supabase = createClient()
 
+    const isConfigMissing = !process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY === 'placeholder-key'
+
     const handleLogin = async (e) => {
         e.preventDefault()
         setLoading(true)
         setError(null)
+
+        if (isConfigMissing) {
+            setError('Sistem Hatası: Vercel Environment Variables (API Anahtarları) eksik veya hatalı yapılandırılmış.')
+            setLoading(false)
+            return
+        }
 
         try {
             const { error } = await supabase.auth.signInWithPassword({
