@@ -8,6 +8,8 @@ import clsx from 'clsx'
 import { toast } from 'react-hot-toast'
 import CalendarView from './CalendarView'
 
+export const dynamic = 'force-dynamic'
+
 function ContractsContent() {
     const [contracts, setContracts] = useState([])
     const [loading, setLoading] = useState(true)

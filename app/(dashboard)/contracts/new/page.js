@@ -8,6 +8,8 @@ import { toast } from 'react-hot-toast'
 import clsx from 'clsx'
 import { createClient } from '@/lib/supabase/client'
 
+export const dynamic = 'force-dynamic'
+
 // Default empty contract state
 const initialContract = {
     customer_name: '',

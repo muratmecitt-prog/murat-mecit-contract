@@ -4,6 +4,8 @@ import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { PlusCircle, Package, Trash2, Loader2, Edit } from 'lucide-react'
 import { createClient } from '@/lib/supabase/client'
+
+export const dynamic = 'force-dynamic'
 import { toast } from 'react-hot-toast'
 
 export default function PackagesPage() {

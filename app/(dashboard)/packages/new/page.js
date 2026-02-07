@@ -7,6 +7,8 @@ import { ChevronLeft, Save, Loader2, Package } from 'lucide-react'
 import { createClient } from '@/lib/supabase/client'
 import { toast } from 'react-hot-toast'
 
+export const dynamic = 'force-dynamic'
+
 export default function NewPackagePage() {
     const router = useRouter()
     const supabase = createClient()

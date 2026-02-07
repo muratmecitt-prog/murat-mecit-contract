@@ -8,6 +8,8 @@ import clsx from 'clsx'
 import { createClient } from '@/lib/supabase/client'
 import { Save, Building2, FileText, AlertCircle, CheckCircle2, Calendar as GoogleCalendarIcon } from 'lucide-react'
 
+export const dynamic = 'force-dynamic'
+
 function SettingsContent() {
     const supabase = createClient()
     const [loading, setLoading] = useState(true)

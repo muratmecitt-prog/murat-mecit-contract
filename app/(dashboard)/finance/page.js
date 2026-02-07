@@ -4,6 +4,8 @@ import { useState, useEffect } from 'react'
 import { Wallet, TrendingUp, AlertCircle, Loader2 } from 'lucide-react'
 import { createClient } from '@/lib/supabase/client'
 
+export const dynamic = 'force-dynamic'
+
 export default function FinancePage() {
     const [loading, setLoading] = useState(true)
     const [stats, setStats] = useState({
