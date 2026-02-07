@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, Suspense } from 'react'
 import Link from 'next/link'
 import { PlusCircle, FileText, Calendar, MapPin, Search, Download, Trash2, Loader2, Eye, X, LayoutList, CalendarDays } from 'lucide-react'
 import { createClient } from '@/lib/supabase/client'
@@ -8,7 +8,7 @@ import clsx from 'clsx'
 import { toast } from 'react-hot-toast'
 import CalendarView from './CalendarView'
 
-export default function ContractsPage() {
+function ContractsContent() {
     const [contracts, setContracts] = useState([])
     const [loading, setLoading] = useState(true)
     const [searchTerm, setSearchTerm] = useState('')
@@ -265,5 +265,13 @@ export default function ContractsPage() {
                 </div>
             )}
         </div>
+    )
+}
+
+export default function ContractsPage() {
+    return (
+        <Suspense fallback={<div className="flex items-center justify-center h-64"><Loader2 className="animate-spin text-gray-400" size={32} /></div>}>
+            <ContractsContent />
+        </Suspense>
     )
 }

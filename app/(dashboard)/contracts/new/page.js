@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, Suspense } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { ChevronLeft, Save, Plus, Trash2, Calendar, Users as UsersIcon, FileText, Package, CreditCard, Loader2, Eye, X } from 'lucide-react'
@@ -43,7 +43,7 @@ const defaultClauses = [
 // Pre-fill initial clauses
 initialContract.clauses = defaultClauses.map((text, i) => ({ id: i, text }));
 
-export default function NewContractPage() {
+function NewContractContent() {
     const router = useRouter()
     const supabase = createClient()
     const [formData, setFormData] = useState(initialContract)
@@ -598,5 +598,13 @@ export default function NewContractPage() {
                 </div>
             )}
         </div>
+    )
+}
+
+export default function NewContractPage() {
+    return (
+        <Suspense fallback={<div className="flex h-screen items-center justify-center"><Loader2 className="animate-spin text-gray-400" size={32} /></div>}>
+            <NewContractContent />
+        </Suspense>
     )
 }
