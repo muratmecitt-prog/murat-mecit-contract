@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, Suspense } from 'react'
 import Link from 'next/link'
 import { useSearchParams } from 'next/navigation'
 import { toast } from 'react-hot-toast'
@@ -8,7 +8,7 @@ import clsx from 'clsx'
 import { createClient } from '@/lib/supabase/client'
 import { Save, Building2, FileText, AlertCircle, CheckCircle2, Calendar as GoogleCalendarIcon } from 'lucide-react'
 
-export default function SettingsPage() {
+function SettingsContent() {
     const supabase = createClient()
     const [loading, setLoading] = useState(true)
     const [saving, setSaving] = useState(false)
@@ -338,5 +338,13 @@ export default function SettingsPage() {
                 </div>
             </form>
         </div>
+    )
+}
+
+export default function SettingsPage() {
+    return (
+        <Suspense fallback={<div className="p-8">Yükleniyor...</div>}>
+            <SettingsContent />
+        </Suspense>
     )
 }
