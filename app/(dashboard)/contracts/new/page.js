@@ -246,7 +246,11 @@ function NewContractContent() {
                 body: JSON.stringify(formData),
             })
 
-            if (!response.ok) throw new Error('Önizleme oluşturulamadı')
+            if (!response.ok) {
+                const errorData = await response.json().catch(() => ({}));
+                console.error('Preview response error:', errorData);
+                throw new Error(errorData.error || 'Önizleme oluşturulamadı');
+            }
 
             const blob = await response.blob()
             const url = window.URL.createObjectURL(blob)
@@ -254,8 +258,8 @@ function NewContractContent() {
             setShowPreview(true)
             toast.success('Önizleme hazır')
         } catch (error) {
-            console.error('Preview error:', error)
-            toast.error('Önizleme sırasında bir hata oluştu.')
+            console.error('Preview handler error:', error)
+            toast.error(`Önizleme hatası: ${error.message}`)
         } finally {
             setLoading(false)
         }
