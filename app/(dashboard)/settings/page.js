@@ -110,7 +110,7 @@ function SettingsContent() {
             toast.success('Ayarlar başarıyla kaydedildi! 🎉')
         } catch (error) {
             console.error('Error saving settings:', error)
-            toast.error('Kayıt sırasında bir hata oluştu. Lütfen veritabanı (SQL) güncellemesini yaptığınızdan emin olun.')
+            toast.error(`Kayıt sırasında bir hata oluştu: ${error.message || error.toString()}. \nDetaylar konsolda.`)
         } finally {
             setSaving(false)
         }
