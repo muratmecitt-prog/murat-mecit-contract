@@ -201,48 +201,192 @@ function SettingsContent() {
                             <FileText size={24} className="text-teal-600" />
                         </div>
                         <div>
-                            <h2 className="font-bold text-lg">Sözleşme Tasarımı</h2>
-                            <p className="text-xs text-gray-400 font-normal">PDF sözleşmenizin görünümünü özelleştirin.</p>
+                            <h2 className="font-bold text-lg">Sözleşme Görünümü</h2>
+                            <p className="text-xs text-gray-400 font-normal">Sözleşmenizin PDF çıktısını önizleyin ve markanıza uygun hale getirin.</p>
                         </div>
                     </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div>
-                            <label className="block text-sm font-semibold text-gray-700 mb-2">
-                                Sözleşme Ana Rengi
-                            </label>
-                            <div className="flex items-center gap-3">
-                                <div className="relative">
-                                    <input
-                                        type="color"
-                                        name="contract_primary_color"
-                                        value={formData.contract_primary_color || '#2dd4bf'}
-                                        onChange={handleChange}
-                                        className="h-12 w-24 p-1 bg-white border border-gray-200 rounded-xl cursor-pointer shadow-sm"
-                                    />
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
+                        {/* Sol Kolon: Ayarlar */}
+                        <div className="space-y-6">
+                            <div>
+                                <label className="block text-sm font-semibold text-gray-700 mb-3">
+                                    Hazır Renk Temaları
+                                </label>
+                                <div className="grid grid-cols-5 gap-3">
+                                    {[
+                                        { name: 'Okyanus', color: '#1e293b' },
+                                        { name: 'Zümrüt', color: '#059669' },
+                                        { name: 'Safir', color: '#2563eb' },
+                                        { name: 'Ametist', color: '#7c3aed' },
+                                        { name: 'Yakut', color: '#e11d48' },
+                                        { name: 'Gece', color: '#000000' },
+                                        { name: 'Toprak', color: '#78350f' },
+                                        { name: 'Petrol', color: '#0f766e' },
+                                        { name: 'Çivit', color: '#4338ca' },
+                                        { name: 'Vişne', color: '#be123c' },
+                                    ].map((theme) => (
+                                        <button
+                                            key={theme.color}
+                                            type="button"
+                                            onClick={() => setFormData({ ...formData, contract_primary_color: theme.color })}
+                                            className={clsx(
+                                                "w-10 h-10 rounded-full border-2 transition-all hover:scale-110 shadow-sm",
+                                                formData.contract_primary_color === theme.color ? "border-gray-800 scale-110 ring-2 ring-gray-200" : "border-transparent"
+                                            )}
+                                            style={{ backgroundColor: theme.color }}
+                                            title={theme.name}
+                                        />
+                                    ))}
                                 </div>
-                                <span className="text-sm font-mono text-gray-500 bg-gray-50 px-3 py-2 rounded-lg border border-gray-100 uppercase">
-                                    {formData.contract_primary_color || '#2dd4bf'}
-                                </span>
                             </div>
-                            <p className="text-[10px] text-gray-400 italic mt-2">Başlıklar ve vurgular bu renk olacaktır.</p>
+
+                            <div className="pt-4 border-t border-dashed border-gray-100">
+                                <label className="block text-sm font-semibold text-gray-700 mb-2">
+                                    Özel Renk Seçimi
+                                </label>
+                                <div className="flex items-center gap-3">
+                                    <div className="relative">
+                                        <input
+                                            type="color"
+                                            name="contract_primary_color"
+                                            value={formData.contract_primary_color || '#2dd4bf'}
+                                            onChange={handleChange}
+                                            className="h-10 w-20 p-1 bg-white border border-gray-200 rounded-lg cursor-pointer shadow-sm"
+                                        />
+                                    </div>
+                                    <span className="text-xs font-mono text-gray-400 bg-gray-50 px-2 py-1 rounded border border-gray-100 uppercase">
+                                        {formData.contract_primary_color || '#2dd4bf'}
+                                    </span>
+                                </div>
+                            </div>
+
+                            <div>
+                                <label className="block text-sm font-semibold text-gray-700 mb-2">
+                                    Şablon Düzeni
+                                </label>
+                                <div className="grid grid-cols-1 gap-3">
+                                    {[
+                                        { id: 'modern', label: 'Modern (Önerilen)', desc: 'Temiz ve profesyonel görünüm.' },
+                                        { id: 'classic', label: 'Klasik (Resmi)', desc: 'Geleneksel sözleşme formatı.' },
+                                        { id: 'minimal', label: 'Minimalist (Sade)', desc: 'Sadece gerekli bilgiler.' }
+                                    ].map((tmpl) => (
+                                        <label
+                                            key={tmpl.id}
+                                            className={clsx(
+                                                "flex items-start p-3 border rounded-xl cursor-pointer transition-all hover:bg-gray-50",
+                                                formData.contract_template === tmpl.id ? "border-teal-500 bg-teal-50/30 ring-1 ring-teal-500" : "border-gray-200"
+                                            )}
+                                        >
+                                            <input
+                                                type="radio"
+                                                name="contract_template"
+                                                value={tmpl.id}
+                                                checked={formData.contract_template === tmpl.id}
+                                                onChange={handleChange}
+                                                className="mt-1 mr-3 text-teal-600 focus:ring-teal-500"
+                                            />
+                                            <div>
+                                                <span className="block text-sm font-bold text-gray-900">{tmpl.label}</span>
+                                                <span className="block text-xs text-gray-500">{tmpl.desc}</span>
+                                            </div>
+                                        </label>
+                                    ))}
+                                </div>
+                            </div>
                         </div>
 
-                        <div>
-                            <label className="block text-sm font-semibold text-gray-700 mb-2">
-                                Şablon Seçimi
-                            </label>
-                            <select
-                                name="contract_template"
-                                value={formData.contract_template || 'modern'}
-                                onChange={handleChange}
-                                className="w-full px-4 py-3 bg-white border border-gray-200 rounded-xl focus:ring-2 focus:ring-teal-500/20 focus:border-teal-500 outline-none transition-all appearance-none"
-                            >
-                                <option value="modern">Modern (Varsayılan)</option>
-                                <option value="classic">Klasik (Resmi)</option>
-                                <option value="minimal">Minimalist (Sade)</option>
-                            </select>
-                            <p className="text-[10px] text-gray-400 italic mt-2">Sözleşmenizin genel düzenini belirler.</p>
+                        {/* Sağ Kolon: Canlı Önizleme */}
+                        <div className="bg-gray-100/50 p-6 rounded-2xl border border-gray-200/50 flex flex-col items-center justify-center min-h-[400px]">
+                            <p className="text-xs font-bold text-gray-400 mb-4 uppercase tracking-wider">Canlı Önizleme</p>
+
+                            {/* A4 Kağıt Temsili */}
+                            <div className="bg-white w-[260px] h-[368px] shadow-xl rounded border border-gray-100 overflow-hidden relative transform transition-all hover:scale-[1.02] flex flex-col">
+                                {/* Header */}
+                                <div
+                                    className="h-12 flex items-center justify-between px-3"
+                                    style={{ backgroundColor: formData.contract_primary_color || '#1e293b' }}
+                                >
+                                    <span className="text-[10px] font-bold text-white tracking-widest">HİZMET SÖZLEŞMESİ</span>
+                                    <span className="text-[8px] text-white/70">{new Date().toLocaleDateString('tr-TR')}</span>
+                                </div>
+
+                                {/* Content Body */}
+                                <div className="p-3 space-y-3 flex-1">
+                                    <div className="text-[7px] text-gray-400 leading-tight">
+                                        İşbu sözleşme, aşağıda bilgileri yer alan taraflar arasında...
+                                    </div>
+
+                                    {/* Taraflar */}
+                                    <div className="flex gap-2">
+                                        <div className="flex-1 bg-gray-50 p-2 rounded border border-gray-100">
+                                            <div
+                                                className="text-[6px] font-bold mb-1 uppercase"
+                                                style={{ color: formData.contract_primary_color || '#1e293b' }}
+                                            >
+                                                HİZMET SAĞLAYICI
+                                            </div>
+                                            <div className="text-[7px] font-bold text-gray-800">{formData.representative_name || 'Firma Adı'}</div>
+                                            <div className="text-[6px] text-gray-400">0 5xx xxx xx xx</div>
+                                        </div>
+                                        <div className="flex-1 bg-gray-50 p-2 rounded border border-gray-100">
+                                            <div
+                                                className="text-[6px] font-bold mb-1 uppercase"
+                                                style={{ color: formData.contract_primary_color || '#1e293b' }}
+                                            >
+                                                HİZMET ALAN
+                                            </div>
+                                            <div className="text-[7px] font-bold text-gray-800">Ahmet Yılmaz</div>
+                                            <div className="text-[6px] text-gray-400">Örnek Müşteri</div>
+                                        </div>
+                                    </div>
+
+                                    {/* Paket */}
+                                    <div className="mt-2">
+                                        <div
+                                            className="h-4 flex items-center px-2 mb-1 rounded-t"
+                                            style={{ backgroundColor: formData.contract_primary_color || '#1e293b' }}
+                                        >
+                                            <span className="text-[6px] font-bold text-white">PAKET İÇERİĞİ</span>
+                                        </div>
+                                        <div className="border border-gray-200 rounded-b p-2 space-y-1">
+                                            <div className="flex items-center gap-1">
+                                                <div className="w-1 h-1 rounded-full bg-gray-300"></div>
+                                                <div className="h-1 w-20 bg-gray-100 rounded"></div>
+                                            </div>
+                                            <div className="flex items-center gap-1">
+                                                <div className="w-1 h-1 rounded-full bg-gray-300"></div>
+                                                <div className="h-1 w-16 bg-gray-100 rounded"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    {/* Finans */}
+                                    <div className="flex justify-end mt-2">
+                                        <div className="w-1/3 bg-gray-50 border border-gray-100 rounded p-2 text-right">
+                                            <div className="text-[6px] text-gray-500">TOPLAM</div>
+                                            <div className="text-[8px] font-bold text-gray-900">15.000 TL</div>
+                                            <div className="h-[1px] bg-gray-200 my-1"></div>
+                                            <div className="text-[6px] font-bold" style={{ color: formData.contract_primary_color }}>KALAN: 5.000 TL</div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                {/* Footer Sig */}
+                                <div className="p-3 border-t border-gray-100 flex justify-between items-end pb-4">
+                                    <div className="text-center">
+                                        <div className="text-[5px] font-bold text-gray-400 mb-2">FİRMA YETKİLİSİ</div>
+                                        <div className="w-12 h-4 border-b border-dashed border-gray-300"></div>
+                                    </div>
+                                    <div className="text-center">
+                                        <div className="text-[5px] font-bold text-gray-400 mb-2">MÜŞTERİ</div>
+                                        <div className="w-12 h-4 border-b border-dashed border-gray-300"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <p className="text-[10px] text-gray-400 mt-4 text-center max-w-[200px]">
+                                * Bu sadece bir önizlemedir. Gerçek PDF çıktısı seçtiğiniz şablona göre farklılık gösterebilir.
+                            </p>
                         </div>
                     </div>
                 </div>
