@@ -57,7 +57,9 @@ function SettingsContent() {
                         '5': 'Sarı',
                         '7': 'Mavi',
                         '10': 'Yeşil'
-                    }
+                    },
+                    contract_primary_color: data.contract_primary_color || '#2dd4bf',
+                    contract_template: data.contract_template || 'modern'
                 })
             }
         }
@@ -99,6 +101,8 @@ function SettingsContent() {
                     phone: formData.phone,
                     email: formData.email,
                     color_labels: formData.color_labels,
+                    contract_primary_color: formData.contract_primary_color,
+                    contract_template: formData.contract_template,
                     updated_at: new Date().toISOString()
                 })
 
@@ -186,6 +190,59 @@ function SettingsContent() {
                                 rows={2}
                                 className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 outline-none transition-all placeholder:text-gray-400"
                             />
+                        </div>
+                    </div>
+                </div>
+
+                {/* 1.5 Sözleşme Tasarımı */}
+                <div className="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 transition-all hover:shadow-md">
+                    <div className="flex items-center gap-3 mb-6 text-gray-800 border-b border-gray-50 pb-4">
+                        <div className="p-2 bg-teal-50 rounded-lg">
+                            <FileText size={24} className="text-teal-600" />
+                        </div>
+                        <div>
+                            <h2 className="font-bold text-lg">Sözleşme Tasarımı</h2>
+                            <p className="text-xs text-gray-400 font-normal">PDF sözleşmenizin görünümünü özelleştirin.</p>
+                        </div>
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label className="block text-sm font-semibold text-gray-700 mb-2">
+                                Sözleşme Ana Rengi
+                            </label>
+                            <div className="flex items-center gap-3">
+                                <div className="relative">
+                                    <input
+                                        type="color"
+                                        name="contract_primary_color"
+                                        value={formData.contract_primary_color || '#2dd4bf'}
+                                        onChange={handleChange}
+                                        className="h-12 w-24 p-1 bg-white border border-gray-200 rounded-xl cursor-pointer shadow-sm"
+                                    />
+                                </div>
+                                <span className="text-sm font-mono text-gray-500 bg-gray-50 px-3 py-2 rounded-lg border border-gray-100 uppercase">
+                                    {formData.contract_primary_color || '#2dd4bf'}
+                                </span>
+                            </div>
+                            <p className="text-[10px] text-gray-400 italic mt-2">Başlıklar ve vurgular bu renk olacaktır.</p>
+                        </div>
+
+                        <div>
+                            <label className="block text-sm font-semibold text-gray-700 mb-2">
+                                Şablon Seçimi
+                            </label>
+                            <select
+                                name="contract_template"
+                                value={formData.contract_template || 'modern'}
+                                onChange={handleChange}
+                                className="w-full px-4 py-3 bg-white border border-gray-200 rounded-xl focus:ring-2 focus:ring-teal-500/20 focus:border-teal-500 outline-none transition-all appearance-none"
+                            >
+                                <option value="modern">Modern (Varsayılan)</option>
+                                <option value="classic">Klasik (Resmi)</option>
+                                <option value="minimal">Minimalist (Sade)</option>
+                            </select>
+                            <p className="text-[10px] text-gray-400 italic mt-2">Sözleşmenizin genel düzenini belirler.</p>
                         </div>
                     </div>
                 </div>

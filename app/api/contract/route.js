@@ -13,7 +13,13 @@ export async function POST(request) {
         return NextResponse.json({ error: 'Unauthorized: No user found' }, { status: 401 })
     }
 
-    // 1. Insert into Database first to get an ID
+    const { data: settings } = await supabase
+        .from('settings')
+        .select('*')
+        .eq('user_id', user.id)
+        .single()
+
+    // 1. Insert into Database
     const { data: contract, error: dbError } = await supabase
         .from('contracts')
         .insert({
@@ -28,6 +34,8 @@ export async function POST(request) {
             deposit: body.deposit === '' ? 0 : Number(body.deposit),
             payment_note: body.payment_note,
             clauses: body.clauses,
+            // Store snapshot of design settings used for this contract (optional but good for history)
+            // For now we just use current settings for PDF generation
         })
         .select()
         .single()
@@ -40,12 +48,6 @@ export async function POST(request) {
     try {
         // 5. Add to Calendar (Async)
         try {
-            const { data: settings } = await supabase
-                .from('settings')
-                .select('google_refresh_token')
-                .eq('user_id', user.id)
-                .single();
-
             if (settings?.google_refresh_token) {
                 createCalendarEvent(body, settings.google_refresh_token).then(id => {
                     if (id) {
@@ -60,7 +62,8 @@ export async function POST(request) {
         }
 
         // 6. Generate PDF
-        const pdfBytes = await generateContractPDF(body)
+        // Pass the settings to the PDF generator
+        const pdfBytes = await generateContractPDF({ ...body, settings })
 
         // 7. Upload to Storage
         // Note: You need to create a bucket named 'signatures' or 'contracts' in Supabase
