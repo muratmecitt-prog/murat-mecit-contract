@@ -104,7 +104,7 @@ function SettingsContent() {
                     contract_primary_color: formData.contract_primary_color,
                     contract_template: formData.contract_template,
                     updated_at: new Date().toISOString()
-                })
+                }, { onConflict: 'user_id' })
 
             if (error) throw error
             toast.success('Ayarlar başarıyla kaydedildi! 🎉')
