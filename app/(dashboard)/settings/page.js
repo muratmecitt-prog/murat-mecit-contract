@@ -312,62 +312,96 @@ function SettingsContent() {
                                 </div>
 
                                 {/* Content Body */}
-                                <div className="p-3 space-y-3 flex-1">
-                                    <div className="text-[7px] text-gray-400 leading-tight">
+                                <div className="p-3 space-y-2 flex-1 flex flex-col">
+                                    <div className="text-[7px] text-gray-400 leading-tight mb-2">
                                         İşbu sözleşme, aşağıda bilgileri yer alan taraflar arasında...
                                     </div>
 
-                                    {/* Taraflar */}
-                                    <div className="flex gap-2">
-                                        <div className="flex-1 bg-gray-50 p-2 rounded border border-gray-100">
+                                    {/* 3 Columns: Provider | Customer | Payment */}
+                                    <div className="grid grid-cols-3 gap-1 mb-2">
+                                        {/* Provider */}
+                                        <div className="bg-gray-50 p-1.5 rounded border border-gray-100 flex flex-col gap-0.5">
                                             <div
-                                                className="text-[6px] font-bold mb-1 uppercase"
+                                                className="text-[5px] font-bold mb-0.5 uppercase truncate"
                                                 style={{ color: formData.contract_primary_color || '#1e293b' }}
                                             >
                                                 HİZMET SAĞLAYICI
                                             </div>
-                                            <div className="text-[7px] font-bold text-gray-800">{formData.representative_name || 'Firma Adı'}</div>
-                                            <div className="text-[6px] text-gray-400">0 5xx xxx xx xx</div>
+                                            <div className="text-[6px] font-bold text-gray-800 truncate">{formData.representative_name || 'Firma Adı'}</div>
+                                            <div className="text-[5px] text-gray-400 truncate">İzmir</div>
+                                            <div className="text-[5px] text-gray-400 truncate">0 5xx ...</div>
                                         </div>
-                                        <div className="flex-1 bg-gray-50 p-2 rounded border border-gray-100">
+
+                                        {/* Customer */}
+                                        <div className="bg-gray-50 p-1.5 rounded border border-gray-100 flex flex-col gap-0.5">
                                             <div
-                                                className="text-[6px] font-bold mb-1 uppercase"
+                                                className="text-[5px] font-bold mb-0.5 uppercase truncate"
                                                 style={{ color: formData.contract_primary_color || '#1e293b' }}
                                             >
                                                 HİZMET ALAN
                                             </div>
-                                            <div className="text-[7px] font-bold text-gray-800">Ahmet Yılmaz</div>
-                                            <div className="text-[6px] text-gray-400">Örnek Müşteri</div>
+                                            <div className="text-[6px] font-bold text-gray-800 truncate">Ahmet Yılmaz</div>
+                                            <div className="text-[5px] text-gray-400 truncate">Çekim: 10.02.2025</div>
+                                            <div className="text-[5px] text-gray-400 truncate">Mekan: Alaçatı</div>
+                                        </div>
+
+                                        {/* Payment */}
+                                        <div className="bg-gray-50 p-1.5 rounded border border-gray-100 flex flex-col gap-0.5">
+                                            <div
+                                                className="text-[5px] font-bold mb-0.5 uppercase truncate"
+                                                style={{ color: formData.contract_primary_color || '#1e293b' }}
+                                            >
+                                                ÖDEME BİLGİLERİ
+                                            </div>
+                                            <div className="flex justify-between text-[5px]">
+                                                <span className="text-gray-500">Toplam:</span>
+                                                <span className="font-bold">15.000</span>
+                                            </div>
+                                            <div className="flex justify-between text-[5px]">
+                                                <span className="text-gray-500">Kapora:</span>
+                                                <span>5.000</span>
+                                            </div>
+                                            <div className="h-[1px] bg-gray-200 my-0.5"></div>
+                                            <div className="flex justify-between text-[5px]" style={{ color: formData.contract_primary_color }}>
+                                                <span className="font-bold">KALAN:</span>
+                                                <span className="font-bold">10.000</span>
+                                            </div>
                                         </div>
                                     </div>
 
-                                    {/* Paket */}
-                                    <div className="mt-2">
+                                    {/* Paket (Full Width) */}
+                                    <div className="flex-1">
                                         <div
-                                            className="h-4 flex items-center px-2 mb-1 rounded-t"
+                                            className="h-3 flex items-center px-2 mb-0.5 rounded-t"
                                             style={{ backgroundColor: formData.contract_primary_color || '#1e293b' }}
                                         >
-                                            <span className="text-[6px] font-bold text-white">PAKET İÇERİĞİ</span>
+                                            <span className="text-[5px] font-bold text-white">PAKET İÇERİĞİ</span>
                                         </div>
-                                        <div className="border border-gray-200 rounded-b p-2 space-y-1">
-                                            <div className="flex items-center gap-1">
-                                                <div className="w-1 h-1 rounded-full bg-gray-300"></div>
-                                                <div className="h-1 w-20 bg-gray-100 rounded"></div>
+                                        <div className="border border-gray-200 rounded-b p-1.5 grid grid-cols-2 gap-2 h-full min-h-[50px]">
+                                            <div className="space-y-1">
+                                                <div className="flex items-center gap-1">
+                                                    <div className="w-0.5 h-0.5 rounded-full bg-gray-300"></div>
+                                                    <div className="h-0.5 w-16 bg-gray-100 rounded"></div>
+                                                </div>
+                                                <div className="flex items-center gap-1">
+                                                    <div className="w-0.5 h-0.5 rounded-full bg-gray-300"></div>
+                                                    <div className="h-0.5 w-12 bg-gray-100 rounded"></div>
+                                                </div>
+                                                <div className="flex items-center gap-1">
+                                                    <div className="w-0.5 h-0.5 rounded-full bg-gray-300"></div>
+                                                    <div className="h-0.5 w-14 bg-gray-100 rounded"></div>
+                                                </div>
                                             </div>
-                                            <div className="flex items-center gap-1">
-                                                <div className="w-1 h-1 rounded-full bg-gray-300"></div>
-                                                <div className="h-1 w-16 bg-gray-100 rounded"></div>
+                                            <div className="space-y-1 border-l border-gray-100 pl-2">
+                                                <div className="flex items-center gap-1">
+                                                    <div className="w-0.5 h-0.5 rounded-full bg-gray-300"></div>
+                                                    <div className="h-0.5 w-10 bg-gray-100 rounded"></div>
+                                                </div>
+                                                <div className="flex items-center gap-1">
+                                                    <div className="w-0.5 h-0.5 rounded-full bg-gray-300"></div>
+                                                    <div className="h-0.5 w-8 bg-gray-100 rounded"></div>
+                                                </div>
                                             </div>
-                                        </div>
-                                    </div>
-
-                                    {/* Finans */}
-                                    <div className="flex justify-end mt-2">
-                                        <div className="w-1/3 bg-gray-50 border border-gray-100 rounded p-2 text-right">
-                                            <div className="text-[6px] text-gray-500">TOPLAM</div>
-                                            <div className="text-[8px] font-bold text-gray-900">15.000 TL</div>
-                                            <div className="h-[1px] bg-gray-200 my-1"></div>
-                                            <div className="text-[6px] font-bold" style={{ color: formData.contract_primary_color }}>KALAN: 5.000 TL</div>
                                         </div>
                                     </div>
                                 </div>
